@@ -1,0 +1,97 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: pricing-api
+paths:
+  "/healtcheck":
+    get:
+      operationId: doHealthCheck
+      summary: >
+        do a healthcheck
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  uptime:
+                    type: number
+        "500":
+          description: server error
+  "/pricing":
+    get:
+      operationId: getPricing
+      summary: >
+        Retrieve a pricing list
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PricingList"
+        "401":
+          description: unauthenticated - invalid jwt token
+        "500":
+          description: server error
+  "/pricing/calculate":
+    post:
+      operationId: calculatePricing
+      summary: >
+        Calculate total pricing cost
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  total:
+                    type: number
+                  customerCode:
+                    type: string
+        "401":
+          description: unauthenticated - invalid jwt token
+        "500":
+          description: server error
+components:
+  parameters:
+    x-sm-trace-token:
+      name: x-sm-trace-token
+      in: header
+      required: true
+      schema:
+        type: string
+    email:
+      name: email
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    PricingList:
+      type: array
+      description: list product pricing
+      items:
+        $ref: "#/components/schemas/Pricing"
+    Pricing:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          description: product code
+        name:
+          type: string
+          description: product name
+        description:
+          type: string
+          description: product description
+        price:
+          type: string
+          description: the price for this product

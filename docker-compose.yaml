@@ -1,0 +1,16 @@
+# Use root/example as user/password credentials
+version: '3.7'
+
+services:
+
+  pricing-api:
+    image: phartono/pricing-api:latest
+    build: .
+    container_name: ph-pricing-api
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - SYSTEM_NAME=pricing-api
+      - HTTP_PORT=3000
+      - JWT_SECRET=secret
