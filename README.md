@@ -1,6 +1,7 @@
 # pricing-api
 
-Pricing API is a REST API micro service that provides information on product pricing as well as customer special pricing model
+Pricing API is a REST API micro service that provides information on product pricing as well as customer special pricing model.
+Requirement can be found [here](./Software%20Engineer%20Code%20Challenge.pdf)
 
 # Concept behind the implementation
 
